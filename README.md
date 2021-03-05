@@ -50,3 +50,4 @@ There are plenty of possible ways to do this, not just in the page; it may be us
 
 ### No support for multiple projects or environments
 
+### No support for Relay Proxy or other flag sources

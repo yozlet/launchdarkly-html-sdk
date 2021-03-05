@@ -4,6 +4,7 @@
     var activeElements = getActiveElements();
     var client_key = getClientKey();
     loadLdJsSDK(jsSdkUrl, initSdk);
+    var LDClient;
 
     // Returns an array of all elements with ld-data-* attributes
     function getActiveElements() {
@@ -29,9 +30,26 @@
 
     // Performs initial flag evaluations and sets up change handlers
     function initSdk() {
-
+        var configAndUser = getConfigAndUserFromMeta();
+        LDClient = LDClient.initialize(
+            client_key,
+            configAndUser['config'],
+            configAndUser['user']
+        );
+        
+        LDClient.on("ready", function() {
+            updateElements();
+        });
+        LDClient.on("change", function(updates) {
+            updateElements(updates);
+        });
     }
 
+    
+    // Construct condig and user objects from the document's <meta> elements.
+    // Returns a single object with two properties: "user" and "config".
+    // Each of these is the correctly-formatted object to be passed to the
+    // SDK constructor.
     function getConfigAndUserFromMeta() {
         const BUILT_INS = [
             "key",
@@ -108,7 +126,9 @@
                         target[name] = value;
                     }
                     return acc;
-            },
-        result);
+                },
+                result
+            )
+        ;
     }
 }())
