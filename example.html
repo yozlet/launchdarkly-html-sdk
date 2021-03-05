@@ -1,27 +1,59 @@
-<meta property="ld:clientid" content="foo">
-<meta property="ld:config:sendEvents" content="true" data-json>
-<meta property="ld:user:name" content="hi" data-private>
-<meta property="ld:user:groups" content="group1" >
-<meta property="ld:user:groups" content="group2">
+<!html>
+    <head>
+        <meta property="ld:clientid" content="foo">
+        <meta property="ld:config:sendEvents" content="true" data-json>
+        <meta property="ld:user:name" content="hi" data-private>
+        <meta property="ld:user:groups" content="group1" >
+        <meta property="ld:user:groups" content="group2">
 
-<!-- result:
-{
-  "user": {
-    "anonymous": true,
-    "custom": {
-      "groups": [
-        "group1",
-        "group2"
-      ]
-    },
-    "name": "hi"
-  },
-  "config": {
-    "privateAttributeNames": [
-      "name"
-    ],
-    "sendEvents": true
-  }
-}
--->
+        <!-- result:
+        {
+        "user": {
+            "anonymous": true,
+            "custom": {
+            "groups": [
+                "group1",
+                "group2"
+            ]
+            },
+            "name": "hi"
+        },
+        "config": {
+            "privateAttributeNames": [
+            "name"
+            ],
+            "sendEvents": true
+        }
+        }
+        -->
+        <style>
+            .space-on {
+                display: none;
+            }
 
+            .space-off {
+                display: inline;
+            }
+
+            .space-enabled > .space-on {
+                display: inline !important;
+            }
+
+            .space-enabled > .space-on {
+                display: none !important;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>HTML SDK Test Page</h1>
+
+        <p class="space-mode" data-ld-flag="space-mode" data-ld-addclass="space-mode-enabled">
+            Space mode is: 
+            <span class="space-on">on</span>
+            <span class="space-off">off</span>
+        </p>
+
+        <script src="launchdarkly-html-sdk.js" data-ld-clientkey="604009d2b8b2810eddcc36db"></script>
+
+    </body>
+</html>
